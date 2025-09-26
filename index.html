@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Project — Elegant POC</title>
+  <meta name="description" content="Elegant GitHub Pages POC with video hero, FAQ, forum (giscus), demo schedule, and a one‑click signup placeholder."/>
+  <!-- Tailwind (CDN for fast start) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://unpkg.com/lucide-static@latest/font/lucide.css" />
+  <style>
+    :root { --glass-bg: rgba(255,255,255,0.08); --glass-bd: rgba(255,255,255,0.18); }
+    html,body { height: 100%; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; }
+    /* video background */
+    #bgwrap { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
+    #bgvideo { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); filter: brightness(0.55) saturate(1.1) contrast(1.05); }
+    /* gradient overlay (Yahoo-esque purple & yellow) */
+    #overlay { position: fixed; inset: 0; z-index: -1; background:
+      radial-gradient(1200px 600px at 10% 10%, rgba(96,1,210,0.30), transparent 60%),
+      radial-gradient(900px 500px at 90% 20%, rgba(255,207,0,0.22), transparent 60%),
+      radial-gradient(800px 800px at 50% 90%, rgba(67,2,151,0.24), transparent 60%);
+      pointer-events: none; }
+    /* glass */
+    .glass { background: var(--glass-bg); backdrop-filter: blur(14px) saturate(120%); border: 1px solid var(--glass-bd); }
+    .btn { @apply inline-flex items-center gap-2 rounded-2xl px-4 py-2 font-medium transition; }
+    .btn-cta { @apply bg-white/90 hover:bg-white text-gray-900 shadow-lg; }
+    .btn-ghost { @apply bg-white/10 hover:bg-white/20 text-white; }
+    .chip { @apply text-xs uppercase tracking-wide rounded-full px-3 py-1 bg-white/10 border border-white/20; }
+    .section { scroll-margin-top: 96px; }
+    .soon { position: absolute; top: 0.75rem; right: 0.75rem; }
+    /* simple card hover */
+    .card { @apply glass rounded-3xl p-6 shadow-xl transition transform hover:-translate-y-0.5 hover:shadow-2xl; }
+  </style>
+</head>
+<body class="min-h-screen text-white bg-black/90">
+  <!-- Background video (supports your phone clip) -->
+  <div id="bgwrap" aria-hidden="true">
+    <video id="bgvideo" autoplay muted playsinline loop></video>
+  </div>
+  <div id="overlay"></div>
+
+  <!-- Top nav -->
+  <header class="sticky top-0 z-40 backdrop-blur bg-black/30 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <a href="#" class="flex items-center gap-3">
+          <span class="i-lucide-asterisk text-xl"></span>
+          <span class="text-lg font-semibold">Your Project</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6 text-sm">
+          <a href="#home" class="hover:opacity-100 opacity-80">Home</a>
+          <a href="#features" class="hover:opacity-100 opacity-80">Features</a>
+          <a href="#faq" class="hover:opacity-100 opacity-80">FAQ</a>
+          <a href="#forum" class="hover:opacity-100 opacity-80">Forum</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <button id="openVideoPicker" class="btn btn-ghost text-sm"><span class="i-lucide-video"></span> Set Background</button>
+          <a href="#signup" class="btn btn-cta text-sm"><span class="i-lucide-rocket"></span> Get Early Access</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main id="home" class="section">
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+      <div class="grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <span class="chip">Elegant • Modern • Fast</span>
+          <h1 class="mt-4 text-4xl md:text-6xl font-extrabold leading-tight">
+            A classy, tool‑ready site for docs, Q&A, and signups.
+          </h1>
+          <p class="mt-6 text-white/80 text-lg md:text-xl max-w-prose">Beautiful GitHub Pages front end with a looping video hero. All the visible pieces are in place now: a demo schedule, one‑click signup, a forum, and background clips—ready to wire to your APIs later.</p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#features" class="btn btn-cta"><span class="i-lucide-sparkles"></span> Explore Features</a>
+            <a href="#forum" class="btn btn-ghost"><span class="i-lucide-message-circle"></span> Open Forum</a>
+          </div>
+          <div class="mt-8 text-sm text-white/70">
+            Tip: click <em>Set Background</em> to preview your phone clip.
+          </div>
+        </div>
+        <div class="card relative">
+          <div class="soon chip">Schedule</div>
+          <h3 class="text-xl font-semibold">Demo Schedule</h3>
+          <p class="mt-2 text-white/80">Dates, owners, and the AI problem we’re tackling.</p>
+          <div class="mt-4 overflow-x-auto">
+            <table class="min-w-full text-sm">
+              <thead class="text-white/80">
+                <tr>
+                  <th class="text-left py-2 pr-4">Date</th>
+                  <th class="text-left py-2 pr-4">Person</th>
+                  <th class="text-left py-2">Synopsis</th>
+                </tr>
+              </thead>
+              <tbody id="demoTbody"></tbody>
+            </table>
+          </div>
+        </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Features grid -->
+  <section id="features" class="section pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl md:text-4xl font-bold">Everything visible, ready to wire</h2>
+      <p class="mt-2 text-white/70 max-w-3xl">These are live components with tasteful placeholders. Swap in your integrations when you’re ready.</p>
+      <div class="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Signup card -->
+        <article class="card relative">
+          <div class="soon chip">Connect to Sheets</div>
+          <div class="flex items-center gap-3">
+            <span class="i-lucide-user-plus text-xl"></span>
+            <h3 class="text-lg font-semibold">Early Access Signup</h3>
+          </div>
+          <p class="mt-2 text-white/80">Collect interest. Later, wire to Google Sheets or Apps Script.</p>
+          <div id="signup" class="mt-4">
+            <button class="btn btn-cta w-full"><span class="i-lucide-check"></span> Join the Waitlist</button>
+          </div>
+        </article>
+
+        <!-- Video links card -->
+        <article class="card relative">
+          <div class="soon chip">Add more clips</div>
+          <div class="flex items-center gap-3">
+            <span class="i-lucide-film text-xl"></span>
+            <h3 class="text-lg font-semibold">Background Clips → Repo Links</h3>
+          </div>
+          <p class="mt-2 text-white/80">Each clip can deep‑link to a repo folder (examples, docs, datasets). Configure below.</p>
+          <div class="mt-4 space-y-2 text-sm text-white/80" id="videoList"></div>
+        </article>
+
+        <!-- Forum / giscus -->
+        <article id="forum" class="card relative md:col-span-2 lg:col-span-3">
+          <div class="soon chip">Live</div>
+          <div class="flex items-center gap-3 mb-2">
+            <span class="i-lucide-message-circle text-xl"></span>
+            <h3 class="text-lg font-semibold">Community Forum</h3>
+          </div>
+          <p class="text-white/80 mb-4">Backed by GitHub Discussions via giscus. Replace the data-* attributes with your repo and category IDs.</p>
+          <div class="glass rounded-2xl overflow-hidden">
+            <script src="https://giscus.app/client.js"
+              data-repo="YOUR_GH_ORG/YOUR_REPO"
+              data-repo-id="REPO_ID"
+              data-category="Q&A"
+              data-category-id="CATEGORY_ID"
+              data-mapping="pathname"
+              data-strict="1"
+              data-reactions-enabled="1"
+              data-emit-metadata="0"
+              data-input-position="top"
+              data-theme="transparent_dark"
+              data-lang="en"
+              crossorigin="anonymous"
+              async>
+            </script>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="section py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl md:text-4xl font-bold">FAQ</h2>
+      <div class="mt-8 grid md:grid-cols-2 gap-6">
+        <details class="card">
+          <summary class="cursor-pointer text-lg font-semibold">How do I change the hero video?</summary>
+          <p class="mt-3 text-white/80">Use <em>Set Background</em> (top right) to pick a local clip while developing. For production, drop .mp4 files in <code>/assets/video</code> and update the <code>clips</code> array in the script.</p>
+        </details>
+        <details class="card">
+          <summary class="cursor-pointer text-lg font-semibold">Where do I put my repo links?</summary>
+          <p class="mt-3 text-white/80">Edit the <code>clips</code> array: each item has a <code>href</code> that points to a GitHub folder (e.g., <code>tree/main/examples</code>).</p>
+        </details>
+        <details class="card">
+          <summary class="cursor-pointer text-lg font-semibold">How do I enable the forum?</summary>
+          <p class="mt-3 text-white/80">Enable Discussions in your GitHub repo, create a category (e.g., Q&amp;A), then paste your <code>data-repo</code>, <code>data-repo-id</code>, <code>data-category-id</code> into the giscus script above.</p>
+        </details>
+        <details class="card">
+          <summary class="cursor-pointer text-lg font-semibold">Will this support Google/Confluence sign‑in later?</summary>
+          <p class="mt-3 text-white/80">Yes. The UI already segments features. We’ll add GIS/PKCE flows and wire the buttons to their APIs.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 py-12 text-white/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p>© <span id="year"></span> Your Project. All rights reserved.</p>
+      <div class="flex items-center gap-4 text-sm">
+        <a class="hover:text-white" href="#">Privacy</a>
+        <a class="hover:text-white" href="#">Terms</a>
+        <a class="hover:text-white" href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Hidden file input for local video preview -->
+  <input type="file" id="videoPicker" accept="video/mp4,video/webm" class="hidden" />
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Configure your background clips here. Replace src with your uploaded file paths in /assets/video.
+    const clips = [
+      { src: '/assets/video/intro1.mp4', href: 'https://github.com/YOUR_ORG/YOUR_REPO/tree/main/examples', label: 'Examples' },
+      { src: '/assets/video/intro2.mp4', href: 'https://github.com/YOUR_ORG/YOUR_REPO/tree/main/docs', label: 'Docs' },
+      { src: '/assets/video/intro3.mp4', href: 'https://github.com/YOUR_ORG/YOUR_REPO/tree/main/datasets', label: 'Datasets' }
+    ];
+
+    const bg = document.getElementById('bgvideo');
+    const videoList = document.getElementById('videoList');
+    let i = 0; 
+
+    function renderVideoList() {
+      videoList.innerHTML = clips.map((c, idx) => (
+        `<div class="flex items-center justify-between gap-3 glass rounded-xl p-3">
+          <div class="flex items-center gap-2">
+            <span class="i-lucide-link-2"></span>
+            <a class="hover:underline" target="_blank" rel="noreferrer" href="${c.href}">${c.label}</a>
+          </div>
+          <button class="text-xs opacity-80 hover:opacity-100 underline" data-jump="${idx}">Play</button>
+        </div>`
+      )).join('');
+      videoList.querySelectorAll('[data-jump]').forEach(btn => btn.addEventListener('click', (e) => {
+        i = parseInt(e.currentTarget.dataset.jump, 10) || 0; play();
+      }));
+    }
+
+    function play() {
+      const item = clips[i % clips.length];
+      bg.src = item.src; bg.onloadedmetadata = () => { try { bg.play(); } catch(_){} };
+      // Rotate every 15s
+      clearTimeout(play._t);
+      play._t = setTimeout(() => { i++; play(); }, 15000);
+      // Make background clickable by capturing click to open link
+      bg.onclick = () => window.open(item.href, '_blank', 'noreferrer');
+    }
+
+    // Local video picker for quick preview (during dev)
+    document.getElementById('openVideoPicker').addEventListener('click', () => {
+      document.getElementById('videoPicker').click();
+    });
+    document.getElementById('videoPicker').addEventListener('change', (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const url = URL.createObjectURL(file);
+      clearTimeout(play._t);
+      bg.src = url; bg.loop = true; bg.onclick = null; // no link for local file
+      bg.onloadedmetadata = () => { try { bg.play(); } catch(_){} };
+    });
+
+    renderVideoList();
+    play();
+
+    // Demo schedule (placeholder data)
+    const demos = [
+      { date: '2025-10-01', person: 'K. Beier', synopsis: 'Auto‑generate FAQs from Discussions' },
+      { date: '2025-10-08', person: 'A. Patel', synopsis: 'Route user questions to experts via Slack' },
+      { date: '2025-10-15', person: 'J. Lin', synopsis: 'Confluence page updater from PR descriptions' },
+      { date: '2025-10-22', person: 'S. Gomez', synopsis: 'Drive/Sheets semantic search prototype' }
+    ];
+
+    const demoTbody = document.getElementById('demoTbody');
+    if (demoTbody) {
+      demoTbody.innerHTML = demos.map(d => `
+        <tr class="border-b border-white/10">
+          <td class="py-2 pr-4 whitespace-nowrap">${d.date}</td>
+          <td class="py-2 pr-4 whitespace-nowrap">${d.person}</td>
+          <td class="py-2">${d.synopsis}</td>
+        </tr>`).join('');
+    }
+  </script>
+</body>
+</html>
